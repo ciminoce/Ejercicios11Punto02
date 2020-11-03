@@ -65,6 +65,8 @@ namespace Ejercicios11Punto02.Windows
             r.Cells[cmnRadio.Index].Value = circ.Radio;
             r.Cells[cmnBorde.Index].Value = circ.Borde;
             r.Cells[cmnRelleno.Index].Value = circ.Relleno;
+            r.Cells[cmnPerimetro.Index].Value = circ.GetPerimetro();
+            r.Cells[cmnSuperficie.Index].Value = circ.GetSuperficie();
 
             r.Tag = circ;
 
@@ -73,6 +75,74 @@ namespace Ejercicios11Punto02.Windows
         private void tsbSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void tsbBorrar_Click(object sender, EventArgs e)
+        {
+            if (dgvDatos.SelectedRows.Count==0)
+            {
+                return;
+            }
+
+            DataGridViewRow r = dgvDatos.SelectedRows[0];
+            Circunferencia circunferencia = (Circunferencia) r.Tag;
+            DialogResult dr = MessageBox.Show($"¿Desea dar de baja la circunferencia de radio {circunferencia.Radio} seleccionada?",
+                "Confirmar Baja", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
+            if (dr==DialogResult.No)
+            {
+                return;
+            }
+
+            if (repositorio.Borrar(circunferencia))
+            {
+                dgvDatos.Rows.Remove(r);
+                MessageBox.Show("Registro borrado", "Mensaje", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("Error al intentar borrar un registro");
+            }
+        }
+
+        private void tsbEditar_Click(object sender, EventArgs e)
+        {
+            if (dgvDatos.SelectedRows.Count==0)
+            {
+                return;
+            }
+
+            DataGridViewRow r = dgvDatos.SelectedRows[0];
+            Circunferencia circunferencia = (Circunferencia) r.Tag;
+            Circunferencia circVieja = (Circunferencia) circunferencia.Clone();
+            FrmCircunferenciasAE frm = new FrmCircunferenciasAE() {Text = "Edición de Circ"};
+            frm.SetCircunferencia(circunferencia);
+            DialogResult dr = frm.ShowDialog(this);
+            if (dr==DialogResult.OK)
+            {
+                circunferencia = frm.GetCircunferencia();
+                if (repositorio.Editar(circVieja, circunferencia))
+                {
+                    SetearFila(r,circunferencia);
+                    MessageBox.Show("Registro borrado", "Mensaje", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("Error al intentar editar una circ");
+                    SetearFila(r,circVieja);
+                }
+            }
+
+        }
+
+        private void xToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            lista = repositorio.OrdenarPorCoordenadaXDelCentro();
+            MostrarDatosEnGrilla();
         }
     }
 }

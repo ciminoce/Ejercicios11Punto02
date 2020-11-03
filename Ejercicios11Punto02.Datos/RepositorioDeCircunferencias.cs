@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Ejercicios11Punto02.Entidades;
 using Ejercicios11Punto02.Enum;
 
@@ -30,14 +31,19 @@ namespace Ejercicios11Punto02.Datos
 
         private void LeerDesdeArchivo()
         {
-            StreamReader lector=new StreamReader(_archivo);
-            while (!lector.EndOfStream)
+            if (File.Exists(_archivo))
             {
-                var linea = lector.ReadLine();
-                Circunferencia circ = ConstruirCirc(linea);
-                Circunferencias.Add(circ);
+                StreamReader lector = new StreamReader(_archivo);
+                while (!lector.EndOfStream)
+                {
+                    var linea = lector.ReadLine();
+                    Circunferencia circ = ConstruirCirc(linea);
+                    Circunferencias.Add(circ);
+                }
+                lector.Close();
+
             }
-            lector.Close();
+
         }
 
         private Circunferencia ConstruirCirc(string linea)
@@ -72,19 +78,76 @@ namespace Ejercicios11Punto02.Datos
                    $"{circunferencia.Relleno}";
         }
 
-        public void Borrar(Circunferencia circunferencia)
+        public bool Borrar(Circunferencia circunferencia)
         {
-            //TODO:Falta hacer que borre del archivo
-            Circunferencias.Remove(circunferencia);
+            if (BorrarDeArchivo(circunferencia))
+            {
+                Circunferencias.Remove(circunferencia);
+                return true;
+            }
+
+            return false;
         }
-        public void Editar(Circunferencia circunferencia)
+
+        private bool BorrarDeArchivo(Circunferencia circunferencia)
         {
+            var borrado = false;
+            StreamReader lector = new StreamReader(_archivo);
+            StreamWriter escritor = new StreamWriter(_archivoBak);
+            while (!lector.EndOfStream)
+            {
+                var linea = lector.ReadLine();
+                Circunferencia circEnArchivo = ConstruirCirc(linea);
+                if (!circEnArchivo.Equals(circunferencia))
+                {
+                    escritor.WriteLine(linea);
+                }
+                else
+                {
+                    borrado = true;
+                }
+            }
+            lector.Close();
+            escritor.Close();
+            File.Delete(_archivo);
+            File.Move(_archivoBak,_archivo);
+            return borrado;
+        }
+
+        public bool Editar(Circunferencia circOriginal, Circunferencia circNueva)
+        {
+            var editado = false;
+            StreamReader lector = new StreamReader(_archivo);
+            StreamWriter escritor = new StreamWriter(_archivoBak);
+            while (!lector.EndOfStream)
+            {
+                var linea = lector.ReadLine();
+                Circunferencia circEnArchivo = ConstruirCirc(linea);
+                if (circEnArchivo.Equals(circOriginal))
+                {
+                    linea = ConstruirLinea(circNueva);
+                    editado = true;
+                }
+                escritor.WriteLine(linea);
+            }
+            lector.Close();
+            escritor.Close();
+            File.Delete(_archivo);
+            File.Move(_archivoBak, _archivo);
+            return editado;
 
         }
         public void Agregar(Circunferencia circunferencia)
         {
             GuardarEnArchivo(circunferencia);
             Circunferencias.Add(circunferencia);
+        }
+
+        public List<Circunferencia> OrdenarPorCoordenadaXDelCentro()
+        {
+            return Circunferencias.OrderBy(c => c.Centro.CoordenadaX)
+                .ThenBy(c=>c.Centro.CoordenadaY)
+                .ThenBy(c=>c.Radio).ToList();
         }
     }
 }

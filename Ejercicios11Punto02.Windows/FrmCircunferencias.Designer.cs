@@ -42,20 +42,19 @@
             this.tsbEditar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbFiltrar = new System.Windows.Forms.ToolStripDropDownButton();
-            this.cuadrante1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cuadrante2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cuadrante3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuadrante4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbRefrescar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbOrdenar = new System.Windows.Forms.ToolStripDropDownButton();
             this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.distanciaAlOrigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cuadranteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbSalir = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
+            this.radioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.toolStrip1.SuspendLayout();
@@ -168,6 +167,7 @@
             this.tsbBorrar.Size = new System.Drawing.Size(43, 22);
             this.tsbBorrar.Text = "Borrar";
             this.tsbBorrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
             // tsbEditar
             // 
@@ -176,6 +176,7 @@
             this.tsbEditar.Size = new System.Drawing.Size(41, 22);
             this.tsbEditar.Text = "Editar";
             this.tsbEditar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
             // toolStripSeparator1
             // 
@@ -185,39 +186,29 @@
             // tsbFiltrar
             // 
             this.tsbFiltrar.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cuadrante1ToolStripMenuItem,
             this.cuadrante2ToolStripMenuItem,
-            this.cuadrante3ToolStripMenuItem,
-            this.cuadrante4ToolStripMenuItem});
+            this.cuadrante3ToolStripMenuItem});
             this.tsbFiltrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbFiltrar.Name = "tsbFiltrar";
             this.tsbFiltrar.Size = new System.Drawing.Size(50, 22);
             this.tsbFiltrar.Text = "Filtrar";
             this.tsbFiltrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
-            // cuadrante1ToolStripMenuItem
-            // 
-            this.cuadrante1ToolStripMenuItem.Name = "cuadrante1ToolStripMenuItem";
-            this.cuadrante1ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.cuadrante1ToolStripMenuItem.Text = "Cuadrante 1";
-            // 
             // cuadrante2ToolStripMenuItem
             // 
+            this.cuadrante2ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox2});
             this.cuadrante2ToolStripMenuItem.Name = "cuadrante2ToolStripMenuItem";
-            this.cuadrante2ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.cuadrante2ToolStripMenuItem.Text = "Cuadrante 2";
+            this.cuadrante2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cuadrante2ToolStripMenuItem.Text = "Relleno";
             // 
             // cuadrante3ToolStripMenuItem
             // 
+            this.cuadrante3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
             this.cuadrante3ToolStripMenuItem.Name = "cuadrante3ToolStripMenuItem";
-            this.cuadrante3ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.cuadrante3ToolStripMenuItem.Text = "Cuadrante 3";
-            // 
-            // cuadrante4ToolStripMenuItem
-            // 
-            this.cuadrante4ToolStripMenuItem.Name = "cuadrante4ToolStripMenuItem";
-            this.cuadrante4ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.cuadrante4ToolStripMenuItem.Text = "Cuadrante 4";
+            this.cuadrante3ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cuadrante3ToolStripMenuItem.Text = "Borde";
             // 
             // tsbRefrescar
             // 
@@ -237,8 +228,7 @@
             this.tsbOrdenar.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.xToolStripMenuItem,
             this.yToolStripMenuItem,
-            this.distanciaAlOrigenToolStripMenuItem,
-            this.cuadranteToolStripMenuItem});
+            this.radioToolStripMenuItem});
             this.tsbOrdenar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOrdenar.Name = "tsbOrdenar";
             this.tsbOrdenar.Size = new System.Drawing.Size(63, 22);
@@ -248,26 +238,15 @@
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.xToolStripMenuItem.Text = "X";
+            this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
             // yToolStripMenuItem
             // 
             this.yToolStripMenuItem.Name = "yToolStripMenuItem";
             this.yToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.yToolStripMenuItem.Text = "Y";
-            // 
-            // distanciaAlOrigenToolStripMenuItem
-            // 
-            this.distanciaAlOrigenToolStripMenuItem.Name = "distanciaAlOrigenToolStripMenuItem";
-            this.distanciaAlOrigenToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.distanciaAlOrigenToolStripMenuItem.Text = "Distancia al Origen";
-            // 
-            // cuadranteToolStripMenuItem
-            // 
-            this.cuadranteToolStripMenuItem.Name = "cuadranteToolStripMenuItem";
-            this.cuadranteToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.cuadranteToolStripMenuItem.Text = "Cuadrante";
             // 
             // toolStripSeparator3
             // 
@@ -287,6 +266,22 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 23);
+            // 
+            // radioToolStripMenuItem
+            // 
+            this.radioToolStripMenuItem.Name = "radioToolStripMenuItem";
+            this.radioToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.radioToolStripMenuItem.Text = "Radio";
             // 
             // FrmCircunferencias
             // 
@@ -324,20 +319,19 @@
         private System.Windows.Forms.ToolStripButton tsbEditar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripDropDownButton tsbFiltrar;
-        private System.Windows.Forms.ToolStripMenuItem cuadrante1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cuadrante2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cuadrante3ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cuadrante4ToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton tsbRefrescar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripDropDownButton tsbOrdenar;
         private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem distanciaAlOrigenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cuadranteToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tsbSalir;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripMenuItem radioToolStripMenuItem;
     }
 }
 

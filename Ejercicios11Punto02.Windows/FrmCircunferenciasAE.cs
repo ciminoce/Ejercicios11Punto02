@@ -17,6 +17,14 @@ namespace Ejercicios11Punto02.Windows
             base.OnLoad(e);
             CargarDatosComboBordes();
             CargarDatosComboRellenos();
+            if (circunferencia!=null)
+            {
+                RadioTextBox.Text = circunferencia.Radio.ToString();
+                XTextBox.Text = circunferencia.Centro.CoordenadaX.ToString();
+                YTextBox.Text = circunferencia.Centro.CoordenadaY.ToString();
+                BordeComboBox.SelectedItem = circunferencia.Borde;
+                RellenoComboBox.Text = circunferencia.Relleno;
+            }
         }
 
         private void CargarDatosComboRellenos()
@@ -70,6 +78,11 @@ namespace Ejercicios11Punto02.Windows
         public Circunferencia GetCircunferencia()
         {
             return circunferencia;
+        }
+
+        public void SetCircunferencia(Circunferencia circunferencia1)
+        {
+            circunferencia = circunferencia1;
         }
     }
 }
