@@ -63,12 +63,24 @@ namespace Ejercicios11Punto02.Datos
             return circ;
         }
 
-        public void GuardarEnArchivo(Circunferencia circunferencia)
+        public bool GuardarEnArchivo(Circunferencia circunferencia)
         {
-            StreamWriter escritor=new StreamWriter(_archivo,true);
-            string linea = ConstruirLinea(circunferencia);
-            escritor.WriteLine(linea);
-            escritor.Close();
+            bool guardado = false;
+            if (!Existe(circunferencia))
+            {
+                StreamWriter escritor = new StreamWriter(_archivo, true);
+                string linea = ConstruirLinea(circunferencia);
+                escritor.WriteLine(linea);
+                escritor.Close();
+                guardado = true;
+            }
+
+            return guardado;
+        }
+
+        private bool Existe(Circunferencia circunferencia)
+        {
+            return Circunferencias.Contains(circunferencia);
         }
 
         private string ConstruirLinea(Circunferencia circunferencia)
@@ -137,10 +149,16 @@ namespace Ejercicios11Punto02.Datos
             return editado;
 
         }
-        public void Agregar(Circunferencia circunferencia)
+        public bool Agregar(Circunferencia circunferencia)
         {
-            GuardarEnArchivo(circunferencia);
-            Circunferencias.Add(circunferencia);
+            var agregado = false;
+            if(GuardarEnArchivo(circunferencia)){
+                
+                Circunferencias.Add(circunferencia);
+                agregado = true;
+            }
+
+            return agregado;
         }
 
         public List<Circunferencia> OrdenarPorCoordenadaXDelCentro()

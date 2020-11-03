@@ -22,10 +22,19 @@ namespace Ejercicios11Punto02.Windows
             if (dr==DialogResult.OK)
             {
                 Circunferencia circunferencia = frm.GetCircunferencia();
-                repositorio.Agregar(circunferencia);
-                DataGridViewRow r = ConstruirFila();
-                SetearFila(r, circunferencia);
-                AgregarFila(r);
+                if (repositorio.Agregar(circunferencia))
+                {
+                    DataGridViewRow r = ConstruirFila();
+                    SetearFila(r, circunferencia);
+                    AgregarFila(r);
+                    MessageBox.Show("Registro agregado", "Mensaje", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("Error al intentar agregar un registro");
+                }
 
             }
         }
